@@ -1,0 +1,103 @@
+[build-system]
+requires = ["setuptools>=68,<76", "wheel>=0.42,<1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strands-bedrock-agent"
+version = "0.1.0"
+description = "Strands Agents SDK agent backed by Anthropic Claude Opus on Amazon Bedrock, with the AWS Knowledge MCP server registered as a tool source."
+requires-python = ">=3.10"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "strands-bedrock-agent contributors" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # Strands Agents SDK — primary runtime; Agent class, model providers, MCP integration.
+    "strands-agents>=1.0,<2.0",
+    # Strands Agents tools package — MCP-enabling extras (per design's MCP integration plan).
+    "strands-agents-tools>=0.1,<1.0",
+    # Upstream Model Context Protocol Python SDK — provides mcp.client.streamable_http.
+    "mcp>=1.0,<2.0",
+    # AWS SDK for Python — boto3 session for Bedrock + control-plane checks (R3.6, R4.4).
+    "boto3>=1.34,<2.0",
+    "botocore>=1.34,<2.0",
+    # Web backend — FastAPI app + uvicorn ASGI server (R9.*).
+    "fastapi>=0.110,<1.0",
+    "uvicorn[standard]>=0.27,<1.0",
+    # Request/response validation models for /api/chat (R9.7, R9.8).
+    "pydantic>=2,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9.0",
+    "pytest-asyncio>=0.23,<1.0",
+    "hypothesis>=6.0,<7.0",
+    "httpx>=0.27,<1.0",
+    "ruff>=0.4,<1.0",
+    "black>=24.0,<26.0",
+]
+
+[project.scripts]
+# CLI entry point — R6.1.
+strands-bedrock-agent = "strands_bedrock_agent.cli:main"
+# Web server entry point — R9.1.
+strands-bedrock-agent-web = "strands_bedrock_agent.web.server:main"
+
+[project.urls]
+Homepage = "https://strandsagents.com/"
+Documentation = "https://strandsagents.com/"
+
+# ------------------------------------------------------------------------------
+# Setuptools — src/ layout, discover the strands_bedrock_agent package and its
+# subpackages (including web and web.static).
+# ------------------------------------------------------------------------------
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = [
+    "strands_bedrock_agent",
+    "strands_bedrock_agent.web",
+    "strands_bedrock_agent.web.static",
+    "strands_bedrock_agent.*",
+]
+
+[tool.setuptools.package-data]
+# Ship the Web_Chat_UI static assets inside the wheel so the installed
+# console script can serve them (R9.2, R9.9).
+"strands_bedrock_agent.web.static" = ["*.html", "*.css", "*.js", "*.svg", "*.ico"]
+
+# ------------------------------------------------------------------------------
+# Tooling
+# ------------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra"
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

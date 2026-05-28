@@ -1,0 +1,129 @@
+/* app.css — minimal styling for the local test UI */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem;
+  color: #1a1a1a;
+  background: #fafafa;
+}
+
+header h1 {
+  margin-bottom: 0.25rem;
+}
+
+header small {
+  color: #666;
+}
+
+/* Transcript area */
+#transcript {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fff;
+  min-height: 6rem;
+  max-height: 24rem;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Tool invocation chips */
+#tool-invocations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+#tool-invocations .tool-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  background: #e8f0fe;
+  color: #1a56db;
+  border: 1px solid #b6d4fe;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+#tool-invocations .tool-chip .chip-time {
+  color: #555;
+  font-size: 0.65rem;
+}
+
+/* Status / spinner */
+#status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #ccc;
+  border-top-color: #1a56db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Prompt form */
+#prompt-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  align-items: flex-end;
+}
+
+#prompt-input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+#send-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  background: #1a56db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#send-btn:hover {
+  background: #1444b0;
+}
+
+/* Disabled state when status is visible (agent is processing) */
+#prompt-input:disabled,
+#send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#send-btn:disabled:hover {
+  background: #1a56db;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Jesse's strands-bedrock-agent — local test UI</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header><h1>Jesse's strands-bedrock-agent</h1>
+    <small>Local test UI — not a production application</small>
+  </header>
+  <main>
+    <div id="transcript" role="log" aria-live="polite"></div>
+    <div id="tool-invocations"></div>
+    <div id="status" hidden>
+      <span>Agent is thinking…</span>
+    </div>
+    <form id="prompt-form">
+      <textarea id="prompt-input" rows="3" maxlength="10000" required></textarea>
+      <button id="send-btn" type="submit">Send</button>
+    </form>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "mcpServers": {
+    "aws-knowledge-mcp-server": {
+      "url": "https://knowledge-mcp.global.api.aws",
+      "type": "http",
+      "disabled": false
+    },
+    "echo-server":{
+        "command": "/opt/homebrew/bin/uv",
+        "type": "stdio",
+        "args": [
+          "run",
+          "--project",
+          "/Users/jessehsiao/Documents/workplace/AI_Agent_Project/tests/fixtures",
+          "python",
+          "/Users/jessehsiao/Documents/workplace/AI_Agent_Project/tests/fixtures/echo_mcp_server.py"
+        ]
+    },
+    "stock-server":{
+        "command": "/opt/homebrew/bin/uv",
+        "type": "stdio",
+        "args": [
+          "run",
+          "--project",
+          "/Users/jessehsiao/Documents/workplace/AI_Agent_Project/tests/fixtures",
+          "python",
+          "/Users/jessehsiao/Documents/workplace/AI_Agent_Project/tests/fixtures/stock_server.py"
+        ]
+    }
+  }
+}
